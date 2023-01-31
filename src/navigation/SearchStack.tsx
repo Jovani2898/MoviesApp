@@ -6,7 +6,7 @@ import {SearchPage} from '../pages/search/Search';
 const SearchStack = createStackNavigator();
 
 export const SearchStackNavigation = () => (
-  <SearchStack.Navigator>
+  <SearchStack.Navigator screenOptions={{headerShown: true}}>
     <SearchStack.Screen name="search" component={SearchPage} />
     <SearchStack.Screen name="details" component={MovieDetailsPage} />
   </SearchStack.Navigator>

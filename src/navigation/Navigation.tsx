@@ -10,7 +10,7 @@ const Tabs = createBottomTabNavigator();
 
 export const Navigation = () => (
   <NavigationContainer>
-    <Tabs.Navigator>
+    <Tabs.Navigator screenOptions={{headerShown: false}}>
       <Tabs.Screen name="home" component={HomeStackNavigation} />
       <Tabs.Screen name="search" component={SearchStackNavigation} />
       <Tabs.Screen name="favorites" component={FavoriteStackNavigation} />

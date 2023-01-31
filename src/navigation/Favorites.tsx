@@ -6,7 +6,7 @@ import {MovieDetailsPage} from '../pages/movieDetails/MovieDetails';
 const FavoritesStack = createStackNavigator();
 
 export const FavoriteStackNavigation = () => (
-  <FavoritesStack.Navigator>
+  <FavoritesStack.Navigator screenOptions={{headerShown: false}}>
     <FavoritesStack.Screen name="favorites" component={FavoritesPage} />
     <FavoritesStack.Screen name="details" component={MovieDetailsPage} />
   </FavoritesStack.Navigator>
