@@ -1,11 +1,8 @@
-import {IUser} from '../../interfaces/user';
-
-const initialState: IUser = {
-  loggedIn: false,
-  data: null,
+const initialState = {
+  favorites: [],
 };
 
-export const userReducer = (
+export const FavoritesReducer = (
   state = initialState,
   action: {type: string; payload: any},
 ) => {

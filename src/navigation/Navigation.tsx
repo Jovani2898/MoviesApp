@@ -11,10 +11,10 @@ const Tabs = createBottomTabNavigator();
 export const Navigation = () => (
   <NavigationContainer>
     <Tabs.Navigator screenOptions={{headerShown: false}}>
-      <Tabs.Screen name="home" component={HomeStackNavigation} />
-      <Tabs.Screen name="search" component={SearchStackNavigation} />
-      <Tabs.Screen name="favorites" component={FavoriteStackNavigation} />
-      <Tabs.Screen name="profile" component={ProfilePage} />
+      <Tabs.Screen name="homeTab" component={HomeStackNavigation} />
+      <Tabs.Screen name="searchTab" component={SearchStackNavigation} />
+      <Tabs.Screen name="favoritesTab" component={FavoriteStackNavigation} />
+      <Tabs.Screen name="profileTab" component={ProfilePage} />
     </Tabs.Navigator>
   </NavigationContainer>
 );

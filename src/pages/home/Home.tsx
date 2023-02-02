@@ -1,6 +1,6 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {TopRatedMoviesList} from '../../components/topRatedMoviesList/TopRatedMoviesList';
 
 export const HomePage = () => {
-  return <Text>HomePage</Text>;
+  return <TopRatedMoviesList />;
 };
