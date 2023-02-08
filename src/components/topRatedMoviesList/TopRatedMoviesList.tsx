@@ -3,8 +3,12 @@ import {FlatList} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {useMovies} from '../../hooks/useMovies';
 import {IMovie} from '../../interfaces/movie';
-import {saveTopRatedMovies} from '../../redux/actions/movies';
+import {
+  loadMoreTopRatedMovies,
+  saveTopRatedMovies,
+} from '../../redux/actions/movies';
 import {TopRatedMoviesListItem} from '../topRatedMoviesListItem/TopRatedMoviesListItem';
+import TopRatedMoviesLoadMore from '../topRatedMoviesLoadMore/TopRatedMoviesLoadMore';
 import {styles} from './styles';
 
 export const TopRatedMoviesList = () => {
@@ -12,14 +16,18 @@ export const TopRatedMoviesList = () => {
   const {data: movieList, page} = useAppSelector(
     state => state.movie.topRatedMovies,
   );
-
+  //topRatedMovies: {data: movieList, page} = useAppSelector(state => state.movie);
   const {fetchTopRatedMovies} = useMovies();
 
   useEffect(() => {
     fetchTopRatedMovies(page).then(moviesResponse => {
       dispatch(saveTopRatedMovies(moviesResponse));
     });
-  }, [dispatch, fetchTopRatedMovies, page]);
+  }, [page]);
+
+  const loadMore = () => {
+    dispatch(loadMoreTopRatedMovies());
+  };
 
   const listRef = useRef<FlatList>(null);
 
@@ -28,9 +36,10 @@ export const TopRatedMoviesList = () => {
       ref={listRef}
       data={movieList}
       renderItem={({item}: {item: IMovie}) => (
-        <TopRatedMoviesListItem key={item.id} item={item} />
+        <TopRatedMoviesListItem item={item} key={item.id} />
       )}
       style={styles.list}
+      ListFooterComponent={() => <TopRatedMoviesLoadMore onPress={loadMore} />}
     />
   );
 };

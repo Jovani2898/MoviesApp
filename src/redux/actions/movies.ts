@@ -11,3 +11,8 @@ export const saveTopRatedMovies = (movies: IMovie[]) => ({
   type: MoviesTypes.SAVE_TOP_RATED_MOVIES,
   payload: movies,
 });
+
+export const loadMoreTopRatedMovies = () => ({
+  type: MoviesTypes.LOAD_MORE_TOP_RATED_MOVIES,
+  payload: null,
+});

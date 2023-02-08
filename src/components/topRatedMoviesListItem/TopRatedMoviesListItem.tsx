@@ -33,6 +33,7 @@ export const TopRatedMoviesListItem = (props: ITopRatedMoviesListItem) => {
     <TouchableOpacity key={item.id} style={styles.item}>
       <FastImage //fast images have a useMemo inside
         style={styles.image}
+        key={item.id}
         resizeMode="cover"
         source={{
           uri: getMovieImageUri({

@@ -1,6 +1,14 @@
+import {IConfiguration} from '../../interfaces/configuration';
+import {IMovie} from '../../interfaces/movie';
 import {MoviesTypes} from '../types/movies';
 
-const initialState = {
+interface InitialState {
+  configuration: IConfiguration | null;
+  topRatedMovies: {page: number; data: IMovie[]};
+  popularMovies: {page: number; data: IMovie[]};
+}
+
+const initialState: InitialState = {
   configuration: null,
   topRatedMovies: {
     page: 1,
@@ -28,6 +36,14 @@ export const MoviesReducer = (
         topRatedMovies: {
           page: state.topRatedMovies.page,
           data: [...state.topRatedMovies.data, ...action.payload],
+        },
+      };
+    case MoviesTypes.LOAD_MORE_TOP_RATED_MOVIES:
+      return {
+        ...state,
+        topRatedMovies: {
+          page: state.topRatedMovies.page + 1,
+          data: state.topRatedMovies.data,
         },
       };
     default:
