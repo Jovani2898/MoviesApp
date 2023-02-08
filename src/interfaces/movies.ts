@@ -6,6 +6,7 @@ export interface IMovies {
   topRatedMovies: {
     page: number;
     data: IMovie[];
+    isLoading: boolean;
   };
   popularMovies: {
     page: number;

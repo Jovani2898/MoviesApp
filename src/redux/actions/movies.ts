@@ -16,3 +16,8 @@ export const loadMoreTopRatedMovies = () => ({
   type: MoviesTypes.LOAD_MORE_TOP_RATED_MOVIES,
   payload: null,
 });
+
+export const loadMoreTopRatedMoviesFinished = () => ({
+  type: MoviesTypes.LOAD_MORE_TOP_RATED_MOVIED_FINISHED,
+  payload: null,
+});

@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Provider, useDispatch} from 'react-redux';
+import {Provider} from 'react-redux';
+import {useAppDispatch} from './src/hooks/redux';
 import {Navigation} from './src/navigation/Navigation';
 import {updateConfiguration} from './src/redux/actions/movies';
 import {store} from './src/redux/store';
 
 const App = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchConfiguration = async () => {

@@ -5,6 +5,7 @@ import {useMovies} from '../../hooks/useMovies';
 import {IMovie} from '../../interfaces/movie';
 import {
   loadMoreTopRatedMovies,
+  loadMoreTopRatedMoviesFinished,
   saveTopRatedMovies,
 } from '../../redux/actions/movies';
 import {TopRatedMoviesListItem} from '../topRatedMoviesListItem/TopRatedMoviesListItem';
@@ -27,6 +28,10 @@ export const TopRatedMoviesList = () => {
 
   const loadMore = () => {
     dispatch(loadMoreTopRatedMovies());
+    const timeout = setTimeout(() => {
+      dispatch(loadMoreTopRatedMoviesFinished());
+      clearTimeout(timeout);
+    }, 1000);
   };
 
   const listRef = useRef<FlatList>(null);

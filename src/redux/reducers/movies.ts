@@ -4,7 +4,7 @@ import {MoviesTypes} from '../types/movies';
 
 interface InitialState {
   configuration: IConfiguration | null;
-  topRatedMovies: {page: number; data: IMovie[]};
+  topRatedMovies: {page: number; data: IMovie[]; isLoading: boolean};
   popularMovies: {page: number; data: IMovie[]};
 }
 
@@ -13,6 +13,7 @@ const initialState: InitialState = {
   topRatedMovies: {
     page: 1,
     data: [],
+    isLoading: false,
   },
   popularMovies: {
     page: 1,
@@ -34,7 +35,7 @@ export const MoviesReducer = (
       return {
         ...state,
         topRatedMovies: {
-          page: state.topRatedMovies.page,
+          ...state.topRatedMovies,
           data: [...state.topRatedMovies.data, ...action.payload],
         },
       };
@@ -44,6 +45,15 @@ export const MoviesReducer = (
         topRatedMovies: {
           page: state.topRatedMovies.page + 1,
           data: state.topRatedMovies.data,
+          isLoading: true,
+        },
+      };
+    case MoviesTypes.LOAD_MORE_TOP_RATED_MOVIED_FINISHED:
+      return {
+        ...state,
+        topRatedMovies: {
+          ...state.topRatedMovies,
+          isLoading: false,
         },
       };
     default:
