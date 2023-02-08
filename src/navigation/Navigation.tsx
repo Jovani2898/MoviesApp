@@ -15,11 +15,47 @@ export const Navigation = () => (
       <Tabs.Screen
         name="homeTab"
         component={HomeStackNavigation}
-        options={{tabBarIcon: () => <Icon name="home" size={20} />}}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({focused}) => (
+            <Icon name="home" size={20} color={focused ? '#4B56D2' : 'grey'} />
+          ),
+        }}
       />
-      <Tabs.Screen name="searchTab" component={SearchStackNavigation} />
-      <Tabs.Screen name="favoritesTab" component={FavoriteStackNavigation} />
-      <Tabs.Screen name="profileTab" component={ProfilePage} />
+      <Tabs.Screen
+        name="searchTab"
+        component={SearchStackNavigation}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({focused}) => (
+            <Icon
+              name="search"
+              size={20}
+              color={focused ? '#4B56D2' : 'grey'}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="favoritesTab"
+        component={FavoriteStackNavigation}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({focused}) => (
+            <Icon name="star" size={20} color={focused ? '#4B56D2' : 'grey'} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profileTab"
+        component={ProfilePage}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({focused}) => (
+            <Icon name="user" size={20} color={focused ? '#4B56D2' : 'grey'} />
+          ),
+        }}
+      />
     </Tabs.Navigator>
   </NavigationContainer>
 );
