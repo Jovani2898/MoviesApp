@@ -1,5 +1,6 @@
-import React, {useState, memo} from 'react';
+import React, {memo} from 'react';
 import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
+import {useAppSelector} from '../../hooks/redux';
 import {styles} from './styles';
 
 interface ITopRatedMoviesLoadMore {
@@ -8,7 +9,9 @@ interface ITopRatedMoviesLoadMore {
 
 const TopRatedMoviesLoadMore = (props: ITopRatedMoviesLoadMore) => {
   const {onPress} = props;
-  const [isLoading] = useState(false);
+  const isLoading = useAppSelector(
+    state => state.movie.topRatedMovies.isLoading,
+  );
 
   return (
     <View style={styles.container}>
