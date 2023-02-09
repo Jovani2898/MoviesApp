@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
 import {useAppDispatch} from './src/hooks/redux';
 import {Navigation} from './src/navigation/Navigation';
 import {updateConfiguration} from './src/redux/actions/movies';
-import {store} from './src/redux/store';
+import {persistor, store} from './src/redux/store';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -28,7 +29,9 @@ const App = () => {
 
 const AppWithProvider = () => (
   <Provider store={store}>
-    <App />
+    <PersistGate persistor={persistor} loading={null}>
+      <App />
+    </PersistGate>
   </Provider>
 );
 
