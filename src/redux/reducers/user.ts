@@ -1,4 +1,5 @@
 import {IUser} from '../../interfaces/user';
+import {UserTypes} from '../types/user';
 
 const initialState: IUser = {
   loggedIn: false,
@@ -10,6 +11,17 @@ export const userReducer = (
   action: {type: string; payload: any},
 ) => {
   switch (action.type) {
+    case UserTypes.USER_SIGN_IN:
+    case UserTypes.USER_SIGN_UP:
+      return {
+        loggedIn: true,
+        data: action.payload,
+      };
+    case UserTypes.USER_LOG_OUT:
+      return {
+        loggedIn: false,
+        data: null,
+      };
     default:
       return state;
   }
