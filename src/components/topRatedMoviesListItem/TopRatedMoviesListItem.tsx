@@ -38,8 +38,8 @@ export const TopRatedMoviesListItem = (props: ITopRatedMoviesListItem) => {
         source={{
           uri: getMovieImageUri({
             imagePath: item.poster_path,
-            imageSize: configuration.images.poster_sizes[6],
-            baseUrl: configuration.images.base_url,
+            imageSize: configuration?.images.poster_sizes[6],
+            baseUrl: configuration?.images.base_url,
           }),
         }}
       />

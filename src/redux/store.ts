@@ -9,6 +9,7 @@ import {persistReducer, persistStore} from 'redux-persist';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  blacklist: ['movie'],
 };
 
 const createDebugger = require('redux-flipper').default;
