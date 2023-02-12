@@ -87,6 +87,7 @@ export const AuthSignUp = (props: IAuthSignUp) => {
         }}
       />
       <Text>Already have an account?</Text>
+
       <TouchableOpacity onPress={onSignInPress}>
         <Text>Sign In here!</Text>
       </TouchableOpacity>

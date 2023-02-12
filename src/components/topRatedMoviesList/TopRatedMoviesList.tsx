@@ -54,6 +54,7 @@ export const TopRatedMoviesList = () => {
     fetchTopRatedMovies(page).then(moviesResponse => {
       dispatch(saveTopRatedMovies(moviesResponse));
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   const loadMore = () => {
@@ -102,6 +103,7 @@ export const TopRatedMoviesList = () => {
           setShowScrollUpButton(elementIndex + 1 >= 2);
         }}
       />
+
       <Animated.View style={{opacity: opacityAnimation}}>
         <ScrollToTopButton onPress={scrollToTop} />
       </Animated.View>

@@ -29,7 +29,7 @@ const App = () => {
 
 const AppWithProvider = () => (
   <Provider store={store}>
-    <PersistGate persistor={persistor} loading={null}>
+    <PersistGate loading={null} persistor={persistor}>
       <App />
     </PersistGate>
   </Provider>
