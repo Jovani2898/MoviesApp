@@ -1,6 +1,9 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Profile} from '../../components/profile/Profile';
+import {useAppSelector} from '../../hooks/redux';
+import {PreAuthPage} from '../authentication/preAuth/PreAuth';
 
 export const ProfilePage = () => {
-  return <Text>ProfilePage</Text>;
+  const loggedIn = useAppSelector(state => state.user.loggedIn);
+  return !loggedIn ? <PreAuthPage /> : <Profile />;
 };

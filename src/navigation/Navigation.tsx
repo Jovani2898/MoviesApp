@@ -50,6 +50,8 @@ export const Navigation = () => (
         name="profileTab"
         component={ProfilePage}
         options={{
+          headerShown: true,
+          title: 'Profile',
           tabBarShowLabel: false,
           tabBarIcon: ({focused}) => (
             <Icon name="user" size={20} color={focused ? '#4B56D2' : 'grey'} />

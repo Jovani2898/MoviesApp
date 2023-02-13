@@ -63,7 +63,7 @@ export const AuthSignUp = (props: IAuthSignUp) => {
         }}
       />
       <DatePicker
-        date={form?.birtDate || null}
+        date={form?.birthDate || null}
         mode="date"
         modal
         onPress={triggerDatePicker}

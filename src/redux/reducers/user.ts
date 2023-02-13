@@ -22,6 +22,11 @@ export const userReducer = (
         loggedIn: false,
         data: null,
       };
+    case UserTypes.USER_UPDATE_PROFILE:
+      return {
+        ...state,
+        data: action.payload,
+      };
     default:
       return state;
   }
