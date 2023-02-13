@@ -8,6 +8,6 @@ export interface ISignUpForm {
   password: string;
   firstName: string;
   lastName: string;
-  birtDate: Date;
+  birthDate: Date;
   aboutMe: string;
 }

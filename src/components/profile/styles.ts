@@ -10,7 +10,20 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'lightgrey',
   },
-  headerText: {
-    fontSize: 24,
+  container: {
+    paddingHorizontal: 12,
+    paddingTop: 12,
+    alignItems: 'center',
+    flex: 1,
+  },
+  input: {
+    marginBottom: 12,
+    width: '100%',
+  },
+  textArea: {
+    textAlignVertical: 'top',
+  },
+  button: {
+    width: '100',
   },
 });

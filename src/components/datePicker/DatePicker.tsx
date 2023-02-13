@@ -32,7 +32,7 @@ export const DatePicker = (props: IDatePicker) => {
       <TouchableOpacity onPress={onPress}>
         <Text style={styles.label}>
           {date
-            ? date.toLocaleDateString('en-US')
+            ? date?.toLocaleDateString('en-US')
             : 'Press to select your birth Date'}
         </Text>
       </TouchableOpacity>
