@@ -24,6 +24,6 @@ export const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
   button: {
-    width: '100',
+    width: '50%',
   },
 });

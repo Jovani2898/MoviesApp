@@ -72,10 +72,7 @@ export const MoviesReducer = (
         ...state,
         popularMovies: {
           ...state.popularMovies,
-          filter: {
-            ...state.popularMovies.filter,
-            genres: action.payload,
-          },
+          data: {...state.popularMovies.data, ...action.payload},
         },
       };
     case MoviesTypes.FETCH_MOVIE_GENRES:

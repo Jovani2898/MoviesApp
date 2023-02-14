@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {useLogin} from '../../hooks/useLogin';
@@ -57,28 +57,34 @@ export const Profile = () => {
     setShowLoader(true);
     const response = await updateProfile(form); //тут фетч сначала возьмёт всё что написал юзер в форму переведёт в стринг а после спарсит
     setShowLoader(false);
-    if (response.success === true) {
-      //success === loggedIn from state
+
+    if (response?.success === true) {
+      // success === loggedIn from state
       dispatch(userUpdateProfile(response.user)); //we saved form in response.user
     }
-    console.log({response});
   };
 
   return (
     <>
       <View style={styles.container}>
-        <TextInput placeholder="Email" defaultValue={form.email} disabled />
+        <TextInput
+          placeholder="Email"
+          defaultValue={form?.email}
+          disabled
+          style={styles.input}
+        />
         <TextInput
           placeholder="Password"
-          value={form.password}
+          value={form?.password}
           onChange={({nativeEvent: {text}}) => {
+            console.log({text});
             setForm({...form, password: text});
           }}
           style={styles.input}
         />
         <TextInput
           placeholder="First Name"
-          value={form.firstName}
+          value={form?.firstName}
           onChange={({nativeEvent: {text}}) => {
             setForm({...form, firstName: text});
           }}
@@ -86,7 +92,7 @@ export const Profile = () => {
         />
         <TextInput
           placeholder="Last Name"
-          value={form.email}
+          value={form?.email}
           onChange={({nativeEvent: {text}}) => {
             setForm({...form, lastName: text});
           }}

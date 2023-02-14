@@ -33,6 +33,13 @@ export const AuthPage = () => {
     setForm({...form, [name]: value});
   };
 
+  /* 
+onPropertyChange('name', 'jovani2898@gmail.com');
+onPropertyChange(birthDate, 'jovani2898@gmail.com');
+setForm({...form, email: jovani2898@gmail.com})
+setForm({...form, name: value = jovani2898@gmail.com})
+*/
+
   const handleOnPress = async (name: string) => {
     Keyboard.dismiss();
     setShowLoader(true);

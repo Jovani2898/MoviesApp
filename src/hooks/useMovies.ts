@@ -57,8 +57,8 @@ export const useMovies = () => {
       .then(res => res.json())
       .then(res => res.genres)
       .then((res: {id: number; name: string}[]) => {
-        // return res.reduce((acc: string[], curr: {id: number; name: string}) => {
-        //   acc.push(curr.name);
+        // return res.reduce((acc: {title: string, value: boolean}[], curr: {id: number; name: string}) => {
+        //   acc.push({title: curr.name, value: false});
         //   return acc;
         // }, []);
         return res.map(item => ({title: item.name, value: false}));
