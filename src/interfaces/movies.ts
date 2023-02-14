@@ -11,5 +11,14 @@ export interface IMovies {
   popularMovies: {
     page: number;
     data: IMovie[];
+    isLoading: boolean;
+    filter: {
+      year: number | null;
+      rating: number;
+      genres: {
+        title: string;
+        value: boolean;
+      }[];
+    };
   };
 }

@@ -5,7 +5,7 @@ import {Divider} from '../divider/Divider';
 import {styles} from './styles';
 
 interface IDatePicker {
-  date: Date | null;
+  date: Date | number | null;
   mode: 'date' | 'datetime' | 'time';
   style?: StyleProp<ViewStyle>;
   modal?: boolean;
@@ -13,6 +13,8 @@ interface IDatePicker {
   onPress?: () => void;
   onConfirm?: (date: Date) => void;
   onCancel?: () => void;
+  title?: string;
+  containerStyle?: StyleProp<ViewStyle>;
 }
 
 export const DatePicker = (props: IDatePicker) => {
@@ -25,21 +27,28 @@ export const DatePicker = (props: IDatePicker) => {
     onPress,
     onConfirm,
     onCancel,
+    title,
+    containerStyle,
   } = props;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyle]}>
       <TouchableOpacity onPress={onPress}>
         <Text style={styles.label}>
           {date
-            ? date?.toLocaleDateString('en-US')
-            : 'Press to select your birth Date'}
+            ? date instanceof Date
+              ? date?.toLocaleDateString('en-US')
+              : date
+            : title}
         </Text>
       </TouchableOpacity>
       {modal ? null : <Divider />}
       <RNDatePicker
-        date={date || new Date()}
+        date={
+          date ? (date instanceof Date ? date : new Date(date, 0)) : new Date()
+        }
         modal={modal}
+        androidVariant="iosClone"
         mode={mode}
         open={isOpen}
         onConfirm={onConfirm}

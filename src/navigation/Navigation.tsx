@@ -50,7 +50,7 @@ export const Navigation = () => (
         name="profileTab"
         component={ProfilePage}
         options={{
-          headerShown: true,
+          headerShown: false,
           title: 'Profile',
           tabBarShowLabel: false,
           tabBarIcon: ({focused}) => (

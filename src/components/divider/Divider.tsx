@@ -1,7 +1,11 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, StyleProp, ViewStyle} from 'react-native';
 import {styles} from './styles';
 
-export const Divider = () => {
-  return <View style={styles.divider} />;
+interface IDivider {
+  style?: StyleProp<ViewStyle>;
+}
+
+export const Divider = (props: IDivider) => {
+  return <View style={[styles.divider, props.style]} />;
 };

@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.11",
+    "@react-native-community/checkbox": "^0.5.14",
     "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-community/slider": "^4.4.2",
     "@react-navigation/bottom-tabs": "^6.5.3",
     "@react-navigation/native": "^6.1.2",
     "@react-navigation/stack": "^6.3.11",
@@ -24,6 +26,7 @@
     "react-native-gesture-handler": "^2.9.0",
     "react-native-safe-area-context": "^4.5.0",
     "react-native-screens": "^3.19.0",
+    "react-native-spin-picker": "^0.0.2",
     "react-native-vector-icons": "^9.2.0",
     "react-navigation-stack": "^2.10.4",
     "react-redux": "^8.0.5",

@@ -70,6 +70,7 @@ export const AuthSignUp = (props: IAuthSignUp) => {
         onConfirm={handleDatePick}
         onCancel={triggerDatePicker}
         isOpen={showDatePicker}
+        title="Please select your Birth date"
       />
       <TextInput
         placeholder="About me "

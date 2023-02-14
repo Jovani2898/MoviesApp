@@ -5,7 +5,16 @@ import {MoviesTypes} from '../types/movies';
 interface InitialState {
   configuration: IConfiguration | null;
   topRatedMovies: {page: number; data: IMovie[]; isLoading: boolean};
-  popularMovies: {page: number; data: IMovie[]};
+  popularMovies: {
+    page: number;
+    data: IMovie[];
+    isLoading: boolean;
+    filter: {
+      year: number | null;
+      rating: number;
+      genres: {title: string; value: boolean}[];
+    };
+  };
 }
 
 const initialState: InitialState = {
@@ -18,6 +27,8 @@ const initialState: InitialState = {
   popularMovies: {
     page: 1,
     data: [],
+    isLoading: false,
+    filter: {year: null, rating: 5, genres: []},
   },
 };
 
@@ -54,6 +65,66 @@ export const MoviesReducer = (
         topRatedMovies: {
           ...state.topRatedMovies,
           isLoading: false,
+        },
+      };
+    case MoviesTypes.SAVE_POPULAR_MOVIES:
+      return {
+        ...state,
+        popularMovies: {
+          ...state.popularMovies,
+          filter: {
+            ...state.popularMovies.filter,
+            genres: action.payload,
+          },
+        },
+      };
+    case MoviesTypes.FETCH_MOVIE_GENRES:
+      return {
+        ...state,
+        popularMovies: {
+          ...state.popularMovies,
+          filter: {
+            ...state.popularMovies.filter,
+            genres: action.payload,
+          },
+        },
+      };
+    case MoviesTypes.SELECT_FILTER_GENRE:
+      return {
+        ...state,
+        popularMovies: {
+          ...state.popularMovies,
+          filter: {
+            ...state.popularMovies.filter,
+            genres: state.popularMovies.filter.genres.map(genre => {
+              if (genre.title === action.payload.title) {
+                genre.value = action.payload.value;
+              }
+              return genre;
+            }),
+          },
+        },
+      };
+    case MoviesTypes.SEARCH_CHANGE_RATING:
+      return {
+        ...state,
+        popularMovies: {
+          ...state.popularMovies,
+          filter: {
+            ...state.popularMovies.filter,
+            rating: action.payload,
+          },
+        },
+      };
+    case MoviesTypes.SEARCH_CHANGE_YEAR:
+      return {
+        ...state,
+        popularMovies: {
+          ...state.popularMovies,
+          filter: {
+            ...state.popularMovies.filter,
+            year: action.payload,
+          },
         },
       };
     default:
