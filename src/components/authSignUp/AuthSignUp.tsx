@@ -5,6 +5,7 @@ import {ISignUpForm} from '../../interfaces/auth';
 import {Button} from '../button/Button';
 import {DatePicker} from '../datePicker/DatePicker';
 import {TextInput} from '../textInput/TextInput';
+import {styles} from './styles';
 
 interface IAuthSignUp {
   onSignInPress: () => void;
@@ -33,13 +34,14 @@ export const AuthSignUp = (props: IAuthSignUp) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <TextInput
         placeholder="Enter your email"
         value={form?.email || ''}
         onChange={({nativeEvent: {text}}) => {
           setForm('email', text);
         }}
+        style={styles.input}
       />
       <TextInput
         placeholder="Enter your password"
@@ -47,6 +49,7 @@ export const AuthSignUp = (props: IAuthSignUp) => {
         onChange={({nativeEvent: {text}}) => {
           setForm('password', text);
         }}
+        style={styles.input}
       />
       <TextInput
         placeholder="Enter your firstName"
@@ -54,6 +57,7 @@ export const AuthSignUp = (props: IAuthSignUp) => {
         onChange={({nativeEvent: {text}}) => {
           setForm('firstName', text);
         }}
+        style={styles.input}
       />
       <TextInput
         placeholder="Enter your lastName"
@@ -61,6 +65,7 @@ export const AuthSignUp = (props: IAuthSignUp) => {
         onChange={({nativeEvent: {text}}) => {
           setForm('lastName', text);
         }}
+        style={styles.input}
       />
       <DatePicker
         date={form?.birthDate || null}
@@ -80,6 +85,7 @@ export const AuthSignUp = (props: IAuthSignUp) => {
         }}
         multiline
         numberOfLines={4}
+        style={[styles.input, styles.textArea]}
       />
       <Button
         text="Sign Up"
@@ -87,10 +93,10 @@ export const AuthSignUp = (props: IAuthSignUp) => {
           onSignUp('signUp');
         }}
       />
-      <Text>Already have an account?</Text>
+      <Text style={styles.textHint}>Already have an account?</Text>
 
       <TouchableOpacity onPress={onSignInPress}>
-        <Text>Sign In here!</Text>
+        <Text style={styles.textButton}>Sign In here!</Text>
       </TouchableOpacity>
     </View>
   );
