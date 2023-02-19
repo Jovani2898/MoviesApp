@@ -1,9 +1,10 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {PopularMoviesLIst} from '../../components/popularMoviesList/PopularMoviesList';
+import {PopularMoviesList} from '../../components/popularMoviesList/PopularMoviesList';
 import {SearchHeader} from '../../components/searchHeader/SearchHeader';
-import {useAppDispatch} from '../../hooks/redux';
+import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {useMovies} from '../../hooks/useMovies';
+import {IGenre} from '../../interfaces/genre';
 import {saveMovieGenres} from '../../redux/actions/movies';
 
 export const SearchPage = () => {
@@ -14,22 +15,26 @@ export const SearchPage = () => {
 
   const dispatch = useAppDispatch();
 
+  const genres = useAppSelector(
+    state => state.movie.popularMovies.filter.genres,
+  );
+
   useEffect(() => {
     setOptions({
       header: () => <SearchHeader setEnableScroll={setEnableScroll} />,
     });
 
-    fetchMovieGenres().then(
-      (movieGenres: {title: string; value: boolean}[]) => {
+    if (genres.length === 0) {
+      fetchMovieGenres().then((movieGenres: IGenre[]) => {
         dispatch(saveMovieGenres(movieGenres));
-      },
-    );
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-      <PopularMoviesLIst enableScroll={enableScroll} />
+      <PopularMoviesList enableScroll={enableScroll} />
     </>
   );
 };

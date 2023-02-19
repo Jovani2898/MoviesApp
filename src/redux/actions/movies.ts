@@ -28,15 +28,15 @@ export const savePopularMovies = (movies: IMovie[]) => ({
 });
 
 export const saveMovieGenres = (
-  moviesGenres: {title: string; value: boolean}[],
+  movieGenres: {title: string; value: boolean; id: number}[],
 ) => ({
   type: MoviesTypes.FETCH_MOVIE_GENRES,
-  payload: moviesGenres,
+  payload: movieGenres,
 });
 
-export const selectMovieGenre = (moviesGenre: string, value: boolean) => ({
+export const selectMovieGenre = (movieGenre: string, value: boolean) => ({
   type: MoviesTypes.SELECT_FILTER_GENRE,
-  payload: {title: moviesGenre, value},
+  payload: {title: movieGenre, value},
 });
 
 export const searchChangeRating = (rating: number) => ({
@@ -47,4 +47,24 @@ export const searchChangeRating = (rating: number) => ({
 export const searchChangeYear = (year: number) => ({
   type: MoviesTypes.SEARCH_CHANGE_YEAR,
   payload: year,
+});
+
+export const searchChangeTitle = (title: string | null) => ({
+  type: MoviesTypes.SEARCH_CHANGE_TITLE,
+  payload: title,
+});
+
+export const searchSaveResult = (movies: IMovie[]) => ({
+  type: MoviesTypes.SEARCH_SAVE_SEARCH_RESULT,
+  payload: movies,
+});
+
+export const searchFilterClear = () => ({
+  type: MoviesTypes.SEARCH_FILTER_CLEAR,
+  payload: null,
+});
+
+export const searchStartLoading = () => ({
+  type: MoviesTypes.SEARCH_START_LOADING,
+  payload: null,
 });

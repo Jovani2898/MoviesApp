@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {useLogin} from '../../hooks/useLogin';

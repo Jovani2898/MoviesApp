@@ -26,5 +26,6 @@ export const useLogin = () => {
 
     return response;
   };
+
   return {signIn, signUp, updateProfile};
 };

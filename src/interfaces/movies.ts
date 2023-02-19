@@ -1,5 +1,6 @@
 import {IConfiguration} from './configuration';
 import {IMovie} from './movie';
+import {IMovieSearchFilter} from './movieSearchFIlter';
 
 export interface IMovies {
   configuration: IConfiguration | null;
@@ -11,14 +12,8 @@ export interface IMovies {
   popularMovies: {
     page: number;
     data: IMovie[];
+    searchResult: IMovie[] | null;
     isLoading: boolean;
-    filter: {
-      year: number | null;
-      rating: number;
-      genres: {
-        title: string;
-        value: boolean;
-      }[];
-    };
+    filter: IMovieSearchFilter;
   };
 }

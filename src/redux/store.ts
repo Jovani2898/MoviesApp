@@ -3,7 +3,7 @@ import {applyMiddleware, combineReducers, createStore} from 'redux';
 import thunk from 'redux-thunk';
 import {FavoritesReducer} from './reducers/favorites';
 import {MoviesReducer} from './reducers/movies';
-import {userReducer} from './reducers/user';
+import {UserReducer} from './reducers/user';
 import {persistReducer, persistStore} from 'redux-persist';
 
 const persistConfig = {
@@ -17,7 +17,7 @@ const createDebugger = require('redux-flipper').default;
 const persistedReducer = persistReducer(
   persistConfig,
   combineReducers({
-    user: userReducer,
+    user: UserReducer,
     movie: MoviesReducer,
     favorites: FavoritesReducer,
   }),

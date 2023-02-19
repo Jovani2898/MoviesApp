@@ -6,12 +6,14 @@ import {useMovies} from '../../hooks/useMovies';
 import {IMovie} from '../../interfaces/movie';
 import {savePopularMovies} from '../../redux/actions/movies';
 import {styles} from './styles';
+import {filterIsEmpty} from '../../utils/search.utils';
+import {IConfiguration} from '../../interfaces/configuration';
 
 interface IPopularMoviesLIst {
   enableScroll: boolean;
 }
 
-export const PopularMoviesLIst = (props: IPopularMoviesLIst) => {
+export const PopularMoviesList = (props: IPopularMoviesLIst) => {
   const {enableScroll} = props;
 
   const [page] = useState(1);
@@ -20,9 +22,25 @@ export const PopularMoviesLIst = (props: IPopularMoviesLIst) => {
 
   const dispatch = useAppDispatch();
 
-  const PopularMovies = useAppSelector(state => state.movie.popularMovies.data);
+  const {
+    data: popularMovies,
+    searchResult,
+    filter,
+  } = useAppSelector(state => state.movie.popularMovies);
 
-  const configuration = useAppSelector(state => state.movie.configuration);
+  const configuration = useAppSelector<IConfiguration>(
+    state => state.movie.configuration,
+  );
+
+  const [data, setData] = useState(popularMovies);
+
+  useEffect(() => {
+    if (searchResult === null || filterIsEmpty(filter)) {
+      setData(popularMovies);
+    } else {
+      setData(searchResult);
+    }
+  }, [searchResult, popularMovies, filter]);
 
   useEffect(() => {
     fetchPopularMovies(page).then(movieResponse => {
@@ -33,7 +51,7 @@ export const PopularMoviesLIst = (props: IPopularMoviesLIst) => {
 
   return (
     <FlatList
-      data={PopularMovies}
+      data={data}
       renderItem={({item}: {item: IMovie}) => (
         <TouchableOpacity key={item.id} style={styles.clickable}>
           <FastImage
@@ -41,8 +59,8 @@ export const PopularMoviesLIst = (props: IPopularMoviesLIst) => {
             source={{
               uri: getMovieImageUri({
                 imagePath: item.poster_path,
-                imageSize: configuration.images.poster_sizes[6],
-                baseUrl: configuration.image.base_url,
+                imageSize: configuration?.images.poster_sizes[6],
+                baseUrl: configuration?.images.base_url,
               }),
             }}
           />

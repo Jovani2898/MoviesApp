@@ -1,3 +1,8 @@
+import {filterMoviesByRating} from '../utils/movie.utils';
+import {IGenre} from '../interfaces/genre';
+import {IMovie} from '../interfaces/movie';
+import {Promise} from 'es6-promise';
+
 export const useMovies = () => {
   const fetchConfiguration = async () => {
     const response = await fetch(
@@ -61,9 +66,44 @@ export const useMovies = () => {
         //   acc.push({title: curr.name, value: false});
         //   return acc;
         // }, []);
-        return res.map(item => ({title: item.name, value: false}));
+        return res.map(item => ({title: item.name, value: false, id: item.id}));
       });
     return response;
+  };
+
+  const searchMovies = async (filter: {
+    title: string | null;
+    year: number | null;
+    rating: number;
+    genres: IGenre[];
+  }) => {
+    const searchResults: IMovie[] = [];
+    let page = 1;
+    let totalPages = 0;
+    const firstResponse = await fetch(
+      `https://api.themoviedb.org/3/search/movie?api_key=eaec283d031b691056914c24ed9aa5e6&query=${filter.title}&year=${filter.year}`,
+    ).then(res => res.json());
+
+    totalPages = firstResponse.total_pages;
+    searchResults.push(...filterMoviesByRating(firstResponse.results, filter));
+
+    const promises = [];
+    for (let i = page + 1; i <= totalPages; i++) {
+      promises.push(
+        fetch(
+          `https://api.themoviedb.org/3/search/movie?api_key=eaec283d031b691056914c24ed9aa5e6&query=${filter.title}&year=${filter.year}&page=${page}`,
+        )
+          .then(res => res.json())
+          .then(res => filterMoviesByRating(res.results, filter)),
+      );
+      page = page + 1;
+    }
+    return Promise.all(promises).then(resolve => {
+      resolve.forEach(pageResults => {
+        searchResults.push(...pageResults);
+      });
+      return searchResults;
+    });
   };
 
   return {
@@ -74,5 +114,6 @@ export const useMovies = () => {
     fetchMovieActors,
     fetchPopularMovies,
     fetchMovieGenres,
+    searchMovies,
   };
 };

@@ -1,54 +1,77 @@
 import Slider from '@react-native-community/slider';
 import React, {useState} from 'react';
-import {StyleProp, Text, TouchableOpacity, View, ViewStyle} from 'react-native';
+import {
+  StyleProp,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+  Keyboard,
+} from 'react-native';
+import {DatePicker} from '../datePicker/DatePicker';
+import {Divider} from '../divider/Divider';
+import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {CheckBox} from '../checkBox/CheckBox';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {
   searchChangeRating,
   searchChangeYear,
+  searchFilterClear,
+  searchSaveResult,
   selectMovieGenre,
 } from '../../redux/actions/movies';
 import {Button} from '../button/Button';
-import {CheckBox} from '../checkBox/CheckBox';
-import {DatePicker} from '../datePicker/DatePicker';
-import {Divider} from '../divider/Divider';
-import {styles} from './styles';
+import {useMovies} from '../../hooks/useMovies';
 
 interface ISearchFilter {
   style?: StyleProp<ViewStyle>;
+  triggerFilter: () => void;
 }
 
 export const SearchFilter = (props: ISearchFilter) => {
-  const [datePickerisOpen, setDatePickerisOpen] = useState(false);
+  const [datePickerIsOpen, setDatePickerIsOpen] = useState(false);
+  const {searchMovies} = useMovies();
 
   const dispatch = useAppDispatch();
 
-  const {genres, rating, year} = useAppSelector(
-    state => state.movie.popularMovies.filter,
-  );
+  const filter = useAppSelector(state => state.movie.popularMovies.filter);
+
+  const handleSearch = async () => {
+    Keyboard.dismiss();
+    props.triggerFilter();
+    await searchMovies(filter).then(searchResult => {
+      dispatch(searchSaveResult(searchResult));
+    });
+  };
+
+  const handleClear = async () => {
+    Keyboard.dismiss();
+    dispatch(searchFilterClear());
+    props.triggerFilter();
+  };
 
   return (
     <View style={[styles.container, props.style]}>
       <View style={styles.singleFilter}>
-        <Text> Movies Year: </Text>
-
+        <Text>Movie year: </Text>
         <DatePicker
           mode="date"
           modal
           onConfirm={date => {
             dispatch(searchChangeYear(date.getFullYear()));
           }}
-          onCancel={() => setDatePickerisOpen(false)}
-          date={year}
+          onCancel={() => setDatePickerIsOpen(false)}
+          date={filter.year}
           title="Select movie year"
-          isOpen={datePickerisOpen}
-          onPress={() => setDatePickerisOpen(true)}
+          isOpen={datePickerIsOpen}
+          onPress={() => setDatePickerIsOpen(true)}
           containerStyle={styles.datePickerContainer}
         />
       </View>
       <Divider style={styles.divider} />
       <View style={[styles.singleFilter]}>
-        <Text> Choose Movie Rating:</Text>
+        <Text>Choose movie rating:</Text>
         <View style={styles.ratingContainer}>
           <View style={styles.ratingStarsContainer}>
             <Icon name="star" />
@@ -60,23 +83,24 @@ export const SearchFilter = (props: ISearchFilter) => {
           <View style={styles.ratingSliderContainer}>
             <TouchableOpacity
               onPress={() => {
-                if (rating > 1) {
-                  dispatch(searchChangeRating(rating - 1));
+                if (filter.rating > 1) {
+                  dispatch(searchChangeRating(filter.rating - 1));
                 }
               }}>
               <Icon name="minus" />
             </TouchableOpacity>
             <Slider
+              style={styles.slider}
               minimumValue={1}
               maximumValue={5}
-              value={rating}
+              value={filter.rating}
               disabled={false}
               step={1}
             />
             <TouchableOpacity
               onPress={() => {
-                if (rating < 5) {
-                  dispatch(searchChangeRating(rating + 1));
+                if (filter.rating < 5) {
+                  dispatch(searchChangeRating(filter.rating + 1));
                 }
               }}>
               <Icon name="plus" />
@@ -86,21 +110,29 @@ export const SearchFilter = (props: ISearchFilter) => {
       </View>
       <Divider style={styles.divider} />
       <View style={[styles.singleFilter, styles.checkboxContainer]}>
-        {genres?.map((genre: {title: string; value: boolean}) => (
-          <CheckBox
-            title={genre.title}
-            selected={genre.value}
-            containerStyle={styles.checkbox}
-            onSelect={(value: boolean) => {
-              console.log(value);
-              dispatch(selectMovieGenre(genre.title, value));
-            }}
-          />
-        ))}
+        {filter.genres?.map(
+          (genre: {title: string; value: boolean; id: number}) => (
+            <CheckBox
+              key={genre.title}
+              title={genre.title}
+              selected={genre.value}
+              containerStyle={styles.checkbox}
+              onSelect={(value: boolean) => {
+                dispatch(selectMovieGenre(genre.title, value));
+              }}
+            />
+          ),
+        )}
       </View>
       <Divider style={styles.divider} />
       <View style={styles.buttonContainer}>
-        <Button text="Search" onPress={() => {}} />
+        <Button
+          text="Clear"
+          style={styles.clearButton}
+          textStyle={styles.clearButtonTextStyle}
+          onPress={handleClear}
+        />
+        <Button text="Search" onPress={handleSearch} />
       </View>
     </View>
   );

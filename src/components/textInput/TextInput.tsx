@@ -19,6 +19,7 @@ interface ITextInput {
   disabled?: boolean;
   defaultValue?: string;
   secureTextEntry?: boolean;
+  onSubmit?: () => void;
 }
 
 export const TextInput = (props: ITextInput) => {
@@ -27,6 +28,7 @@ export const TextInput = (props: ITextInput) => {
     placeholder,
     value,
     onChange,
+    onSubmit,
     multiline,
     numberOfLines,
     disabled,
@@ -38,6 +40,9 @@ export const TextInput = (props: ITextInput) => {
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      onSubmitEditing={() => {
+        onSubmit && onSubmit();
+      }}
       multiline={multiline}
       editable={!disabled}
       defaultValue={defaultValue || ''}

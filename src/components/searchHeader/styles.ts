@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   input: {paddingVertical: 0, width: '80%', borderRadius: 4},
-  filer: {
+  filter: {
     borderWidth: 1,
     borderRadius: 8,
     paddingVertical: 4,

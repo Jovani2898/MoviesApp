@@ -6,7 +6,7 @@ const initialState: IUser = {
   data: null,
 };
 
-export const userReducer = (
+export const UserReducer = (
   state = initialState,
   action: {type: string; payload: any},
 ) => {

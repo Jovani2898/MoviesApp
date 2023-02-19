@@ -46,5 +46,14 @@ export const styles = StyleSheet.create({
   },
   buttonContainer: {
     alignItems: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
+  clearButton: {
+    backgroundColor: '#fff',
+    borderStyle: 'dashed',
+    borderWidth: 1,
+    borderColor: '#000',
+  },
+  clearButtonTextStyle: {color: '#000'},
 });

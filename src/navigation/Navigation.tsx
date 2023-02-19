@@ -1,63 +1,32 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import {HomeStackNavigation} from './HomeStack';
-import {FavoriteStackNavigation} from './Favorites';
-import {SearchStackNavigation} from './SearchStack';
-import {ProfilePage} from '../pages/profile/Profile';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {createStackNavigator} from '@react-navigation/stack';
+import {TabsNavigation} from './Tabs';
+import {AuthPage} from '../pages/authentication/auth/Auth';
+import {MovieDetailsPage} from '../pages/movieDetails/MovieDetails';
 
-const Tabs = createBottomTabNavigator();
+const RootStack = createStackNavigator();
 
 export const Navigation = () => (
   <NavigationContainer>
-    <Tabs.Navigator screenOptions={{headerShown: false}}>
-      <Tabs.Screen
-        name="homeTab"
-        component={HomeStackNavigation}
+    <RootStack.Navigator
+      initialRouteName="default"
+      screenOptions={{headerShown: false}}>
+      <RootStack.Screen name="default" component={TabsNavigation} />
+      <RootStack.Screen
+        name="details"
+        component={MovieDetailsPage}
+        options={{presentation: 'card', headerShown: true}}
+      />
+      <RootStack.Screen
+        name="auth"
+        component={AuthPage}
         options={{
-          tabBarShowLabel: false,
-          tabBarIcon: ({focused}) => (
-            <Icon name="home" size={20} color={focused ? '#4B56D2' : 'grey'} />
-          ),
+          presentation: 'modal',
+          title: 'Authentication',
+          headerShown: true,
         }}
       />
-      <Tabs.Screen
-        name="searchTab"
-        component={SearchStackNavigation}
-        options={{
-          tabBarShowLabel: false,
-          tabBarIcon: ({focused}) => (
-            <Icon
-              name="search"
-              size={20}
-              color={focused ? '#4B56D2' : 'grey'}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="favoritesTab"
-        component={FavoriteStackNavigation}
-        options={{
-          tabBarShowLabel: false,
-          tabBarIcon: ({focused}) => (
-            <Icon name="star" size={20} color={focused ? '#4B56D2' : 'grey'} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="profileTab"
-        component={ProfilePage}
-        options={{
-          headerShown: false,
-          title: 'Profile',
-          tabBarShowLabel: false,
-          tabBarIcon: ({focused}) => (
-            <Icon name="user" size={20} color={focused ? '#4B56D2' : 'grey'} />
-          ),
-        }}
-      />
-    </Tabs.Navigator>
+    </RootStack.Navigator>
   </NavigationContainer>
 );
