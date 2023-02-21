@@ -88,6 +88,7 @@ export const useMovies = () => {
     searchResults.push(...filterMoviesByRating(firstResponse.results, filter));
 
     const promises = [];
+
     for (let i = page + 1; i <= totalPages; i++) {
       promises.push(
         fetch(
