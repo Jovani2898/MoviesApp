@@ -1,4 +1,4 @@
-import {useAppSelector} from '../../hooks/redux';
+import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {IMovie} from '../../interfaces/movie';
 import {IConfiguration} from '../../interfaces/configuration';
 import {useMovies} from '../../hooks/useMovies';
@@ -7,6 +7,7 @@ import {Text, Dimensions, StatusBar, TouchableOpacity} from 'react-native';
 import {useStyles} from './styles';
 import React, {useMemo} from 'react';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+import {addFavorite} from '../../redux/actions/favorites';
 
 interface ITopRatedMoviesListItem {
   item: IMovie;
@@ -29,11 +30,17 @@ export const TopRatedMoviesListItem = (props: ITopRatedMoviesListItem) => {
     windowHeight,
   });
 
+  const dispatch = useAppDispatch();
+
   return (
-    <TouchableOpacity key={item.id} style={styles.item}>
+    <TouchableOpacity
+      key={item.id}
+      style={styles.item}
+      onPress={() => {
+        dispatch(addFavorite(item));
+      }}>
       <FastImage //fast images have a useMemo inside
         style={styles.image}
-        key={item.id}
         resizeMode="cover"
         source={{
           uri: getMovieImageUri({
