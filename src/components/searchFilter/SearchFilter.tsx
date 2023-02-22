@@ -41,6 +41,7 @@ export const SearchFilter = (props: ISearchFilter) => {
     Keyboard.dismiss();
     props.triggerFilter();
     await searchMovies(filter).then(searchResult => {
+      // console.log({searchResult});
       dispatch(searchSaveResult(searchResult));
     });
   };

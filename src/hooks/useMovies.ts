@@ -77,7 +77,7 @@ export const useMovies = () => {
     rating: number;
     genres: IGenre[];
   }) => {
-    const searchResults: IMovie[] = [];
+    let searchResults: IMovie[] = [];
     let page = 1;
     let totalPages = 0;
     const firstResponse = await fetch(
@@ -103,7 +103,18 @@ export const useMovies = () => {
       resolve.forEach(pageResults => {
         searchResults.push(...pageResults);
       });
-      return searchResults;
+      const finalResult: any = [];
+      for (let i = 0; i < searchResults.length; i++) {
+        const element = searchResults[i];
+        if (
+          filter.genres
+            .filter(activeFilter => activeFilter.value)
+            .some(r => element.genre_ids.includes(r.id))
+        ) {
+          finalResult.push(element);
+        }
+      }
+      return finalResult;
     });
   };
 

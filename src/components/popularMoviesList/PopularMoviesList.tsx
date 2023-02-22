@@ -8,6 +8,7 @@ import {savePopularMovies} from '../../redux/actions/movies';
 import {styles} from './styles';
 import {filterIsEmpty} from '../../utils/search.utils';
 import {IConfiguration} from '../../interfaces/configuration';
+import PopularMoviesListItem from '../popularMoviesListItem/PopularMoviesListItem';
 
 interface IPopularMoviesLIst {
   enableScroll: boolean;
@@ -35,7 +36,7 @@ export const PopularMoviesList = (props: IPopularMoviesLIst) => {
   const [data, setData] = useState(popularMovies);
 
   useEffect(() => {
-    if (searchResult === null || filterIsEmpty(filter)) {
+    if (searchResult === null) {
       setData(popularMovies);
     } else {
       setData(searchResult);
@@ -53,18 +54,7 @@ export const PopularMoviesList = (props: IPopularMoviesLIst) => {
     <FlatList
       data={data}
       renderItem={({item}: {item: IMovie}) => (
-        <TouchableOpacity key={item.id} style={styles.clickable}>
-          <FastImage
-            style={styles.image}
-            source={{
-              uri: getMovieImageUri({
-                imagePath: item.poster_path,
-                imageSize: configuration?.images.poster_sizes[6],
-                baseUrl: configuration?.images.base_url,
-              }),
-            }}
-          />
-        </TouchableOpacity>
+        <PopularMoviesListItem item={item} />
       )}
       numColumns={3}
       scrollEnabled={enableScroll}
