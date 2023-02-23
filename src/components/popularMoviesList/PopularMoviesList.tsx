@@ -1,13 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, TouchableOpacity} from 'react-native';
-import FastImage from 'react-native-fast-image';
+import {FlatList} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {useMovies} from '../../hooks/useMovies';
 import {IMovie} from '../../interfaces/movie';
 import {savePopularMovies} from '../../redux/actions/movies';
-import {styles} from './styles';
-import {filterIsEmpty} from '../../utils/search.utils';
-import {IConfiguration} from '../../interfaces/configuration';
 import PopularMoviesListItem from '../popularMoviesListItem/PopularMoviesListItem';
 
 interface IPopularMoviesLIst {
@@ -19,7 +15,7 @@ export const PopularMoviesList = (props: IPopularMoviesLIst) => {
 
   const [page] = useState(1);
 
-  const {fetchPopularMovies, getMovieImageUri} = useMovies();
+  const {fetchPopularMovies} = useMovies();
 
   const dispatch = useAppDispatch();
 
@@ -28,10 +24,6 @@ export const PopularMoviesList = (props: IPopularMoviesLIst) => {
     searchResult,
     filter,
   } = useAppSelector(state => state.movie.popularMovies);
-
-  const configuration = useAppSelector<IConfiguration>(
-    state => state.movie.configuration,
-  );
 
   const [data, setData] = useState(popularMovies);
 

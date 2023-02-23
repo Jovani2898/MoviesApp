@@ -33,14 +33,14 @@ export const SearchHeader = (props: ISearchHeader) => {
     Keyboard.dismiss();
     setShowFilters(state => {
       if (!state) {
-        // setEnableScroll(false);
+        setEnableScroll(false);
         Animated.spring(slideAnimation, {
           toValue: 0,
           useNativeDriver: false,
           bounciness: 0,
         }).start();
       } else {
-        // setEnableScroll(true);
+        setEnableScroll(true);
         Animated.spring(slideAnimation, {
           toValue: 1,
           useNativeDriver: false,
