@@ -1,28 +1,32 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {memo} from 'react';
 import {TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {useAppDispatch, useAppSelector} from '../../hooks/redux';
+import {useAppSelector} from '../../hooks/redux';
 import {useMovies} from '../../hooks/useMovies';
 import {IMovie} from '../../interfaces/movie';
-import {addFavorite} from '../../redux/actions/favorites';
 import {styles} from './styles';
 
 interface IPopularMoviesListItem {
   item: IMovie;
 }
 
-export const PopularMoviesListItem = (props: IPopularMoviesListItem) => {
+const PopularMoviesListItem = (props: IPopularMoviesListItem) => {
   const {item} = props;
   const {getMovieImageUri} = useMovies();
   const configuration = useAppSelector(state => state.movie.configuration);
 
-  const dispatch = useAppDispatch();
+  const {navigate} = useNavigation();
+
+  const handlePress = () => {
+    navigate('details', {movie: item});
+  };
 
   return (
     <TouchableOpacity
       key={item.id}
       style={styles.clickable}
-      onPress={() => dispatch(addFavorite(item))}>
+      onPress={handlePress}>
       <FastImage
         style={styles.image}
         source={{

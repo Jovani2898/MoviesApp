@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
 import {Animated, Dimensions, FlatList, StatusBar} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {useMovies} from '../../hooks/useMovies';
@@ -14,7 +14,7 @@ import {styles} from './styles';
 import {ScrollToTopButton} from '../scrollToTopButton/ScrollToTopButton';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 
-export const TopRatedMoviesList = () => {
+export const TopRatedMoviesList = memo(() => {
   const opacityAnimation = useRef(new Animated.Value(0)).current;
   const dispatch = useAppDispatch();
   const {data: movieList, page} = useAppSelector(
@@ -109,4 +109,4 @@ export const TopRatedMoviesList = () => {
       </Animated.View>
     </>
   );
-};
+});

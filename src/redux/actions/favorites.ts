@@ -1,13 +1,13 @@
 import {IMovie} from '../../interfaces/movie';
 import {FAVORITES_TYPES} from '../types/favorites';
 
-export const addFavorite = (movie: IMovie) => ({
-  type: FAVORITES_TYPES.ADD_FAVORITE,
+export const triggerFavorite = (movie: IMovie) => ({
+  type: FAVORITES_TYPES.TRIGGER_FAVORITE,
   payload: movie,
 });
 
-export const removeFavorite = (movieId: string) => ({
-  type: FAVORITES_TYPES.REMOVE_FAVORITE,
+export const existFavorite = (movieId: string) => ({
+  type: FAVORITES_TYPES.EXIST_IN_FAVORITE,
   payload: movieId,
 });
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {
   NativeSyntheticEvent,
   StyleProp,
@@ -35,8 +35,12 @@ export const TextInput = (props: ITextInput) => {
     defaultValue,
     secureTextEntry,
   } = props;
+
+  const inputRef = useRef<RNTextInput>(null);
+
   return (
     <RNTextInput
+      ref={inputRef}
       placeholder={placeholder}
       value={value}
       onChange={onChange}

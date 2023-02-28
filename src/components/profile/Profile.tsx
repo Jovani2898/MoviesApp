@@ -99,7 +99,7 @@ export const Profile = () => {
           style={styles.input}
         />
         <DatePicker
-          date={new Date(form?.birthDate) || null}
+          date={form?.birthDate ? new Date(form?.birthDate) : null}
           mode="date"
           modal
           onPress={triggerDatePicker}

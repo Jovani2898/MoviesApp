@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {Dispatch, SetStateAction, useCallback} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {useAppSelector} from '../../hooks/redux';
 import {useMovies} from '../../hooks/useMovies';
 import {IMovie} from '../../interfaces/movie';
@@ -21,19 +22,19 @@ export const FavoritesListItem = (props: IFavoritesListItem) => {
   const configuration = useAppSelector(state => state.movie.configuration);
 
   const handleRedirect = useCallback(() => {
-    navigate('details', {item});
+    navigate('details', {movie: item});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={handleRedirect} style={styles.imageButton}>
-        <Image
+        <FastImage
           style={styles.image}
           source={{
             uri: getMovieImageUri({
-              baseUrl: configuration.images.base_url,
-              imageSize: configuration.images.poster_sizes[6],
+              baseUrl: configuration?.images.base_url,
+              imageSize: configuration?.images.poster_sizes[6],
               imagePath: item.poster_path,
             }),
           }}

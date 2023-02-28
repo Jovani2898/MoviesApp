@@ -20,7 +20,7 @@ export const useMovies = () => {
     return response;
   };
 
-  const fetchSingleMovie = async (movieId: string) => {
+  const fetchSingleMovie = async (movieId: number) => {
     const response = await fetch(
       `https://api.themoviedb.org/3/movie/${movieId}?api_key=eaec283d031b691056914c24ed9aa5e6`,
     ).then(res => res.json());
@@ -103,6 +103,7 @@ export const useMovies = () => {
       resolve.forEach(pageResults => {
         searchResults.push(...pageResults);
       });
+
       const finalResult: any = [];
       for (let i = 0; i < searchResults.length; i++) {
         const element = searchResults[i];
@@ -118,7 +119,17 @@ export const useMovies = () => {
     });
   };
 
+  const fetchCastByMovieId = async (movieId: number) => {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=eaec283d031b691056914c24ed9aa5e6`,
+    )
+      .then(res => res.json())
+      .then(res => res.cast);
+    return response;
+  };
+
   return {
+    fetchCastByMovieId,
     fetchConfiguration,
     fetchTopRatedMovies,
     fetchSingleMovie,
