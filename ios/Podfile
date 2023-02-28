@@ -9,7 +9,7 @@ target 'MyMoviesApp' do
 
   # Flags change depending on the env values.
   flags = get_default_flags()
-
+  
   use_react_native!(
     :path => config[:reactNativePath],
     # Hermes is now enabled by default. Disable by setting this flag to false.
@@ -21,7 +21,8 @@ target 'MyMoviesApp' do
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable the next line.
-    :flipper_configuration => FlipperConfiguration.enabled,
+    # :flipper_configuration => FlipperConfiguration.enabled,
+    
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
@@ -30,8 +31,10 @@ target 'MyMoviesApp' do
     inherit! :complete
     # Pods for testing
   end
-
+  
+  use_flipper!({'Flipper' => '0.182.0'})
   post_install do |installer|
+    flipper_post_install(installer)
     react_native_post_install(
       installer,
       # Set `mac_catalyst_enabled` to `true` in order to apply patches

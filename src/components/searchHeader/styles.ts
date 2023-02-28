@@ -1,4 +1,5 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
+Platform;
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,7 +11,11 @@ export const styles = StyleSheet.create({
     zIndex: 3,
     backgroundColor: '#fff',
   },
-  input: {paddingVertical: 0, width: '80%', borderRadius: 4},
+  input: {
+    width: '80%',
+    borderRadius: 4,
+    paddingVertical: Platform.OS === 'android' ? 0 : 8,
+  },
   filter: {
     borderWidth: 1,
     borderRadius: 8,

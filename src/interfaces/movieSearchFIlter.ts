@@ -5,4 +5,5 @@ export interface IMovieSearchFilter {
   year: number | null;
   rating: number;
   genres: IGenre[];
+  genreIsSelected: boolean;
 }

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {StrictMode, useEffect, useMemo} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -7,6 +7,7 @@ import {Navigation} from './src/navigation/Navigation';
 import {updateConfiguration} from './src/redux/actions/movies';
 import {persistor, store} from './src/redux/store';
 import {useMovies} from './src/hooks/useMovies';
+import {Platform, SafeAreaView, StatusBar} from 'react-native';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -29,19 +30,29 @@ const App = () => {
   //   fetchConfiguration();
   // }, [dispatch]);
 
+  const Wrapper = useMemo(
+    () => (Platform.OS === 'android' ? SafeAreaProvider : SafeAreaView),
+    [],
+  );
+
   return (
-    <SafeAreaProvider>
-      <Navigation />
-    </SafeAreaProvider>
+    <>
+      <StatusBar />
+      <Wrapper style={{flex: 1}}>
+        <Navigation />
+      </Wrapper>
+    </>
   );
 };
 
 const AppWithProvider = () => (
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <App />
-    </PersistGate>
-  </Provider>
+  <StrictMode>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Provider>
+  </StrictMode>
 );
 
 export default AppWithProvider;

@@ -1,5 +1,5 @@
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {Dimensions, FlatList, StatusBar} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {useMovies} from '../../hooks/useMovies';
@@ -7,13 +7,13 @@ import {IMovie} from '../../interfaces/movie';
 import {savePopularMovies} from '../../redux/actions/movies';
 import {Loader} from '../loader/Loader';
 import {PopularMovieIsEmpty} from '../popularMovieIsEmpty/PopularMovieIsEmpty';
-import PopularMoviesListItem from '../popularMoviesListItem/PopularMoviesListItem';
+import {PopularMoviesListItem} from '../popularMoviesListItem/PopularMoviesListItem';
 
 interface IPopularMoviesLIst {
   enableScroll: boolean;
 }
 
-export const PopularMoviesList = (props: IPopularMoviesLIst) => {
+export const PopularMoviesList = memo((props: IPopularMoviesLIst) => {
   const {enableScroll} = props;
 
   const [page, setPage] = useState(1);
@@ -54,8 +54,9 @@ export const PopularMoviesList = (props: IPopularMoviesLIst) => {
     <>
       <FlatList
         data={data}
+        keyExtractor={item => item.id.toString()}
         renderItem={({item}: {item: IMovie}) => (
-          <PopularMoviesListItem item={item} key={item.id} />
+          <PopularMoviesListItem item={item} />
         )}
         numColumns={3}
         scrollEnabled={enableScroll}
@@ -72,4 +73,4 @@ export const PopularMoviesList = (props: IPopularMoviesLIst) => {
       {isLoading === true ? <Loader /> : null}
     </>
   );
-};
+});

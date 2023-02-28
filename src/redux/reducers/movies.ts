@@ -14,7 +14,13 @@ const initialState: IMovies = {
     data: [],
     searchResult: null,
     isLoading: false,
-    filter: {year: null, rating: 0, genres: [], title: null},
+    filter: {
+      year: null,
+      rating: 0,
+      genres: [],
+      title: null,
+      genreIsSelected: false,
+    },
   },
 };
 
@@ -85,6 +91,9 @@ export const MoviesReducer = (
               }
               return genre;
             }),
+            genreIsSelected: !!state.popularMovies.filter.genres.find(
+              genre => genre.value === true,
+            ),
           },
         },
       };

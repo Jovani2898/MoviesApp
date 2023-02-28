@@ -11,7 +11,7 @@ interface IPopularMoviesListItem {
   item: IMovie;
 }
 
-const PopularMoviesListItem = (props: IPopularMoviesListItem) => {
+export const PopularMoviesListItem = memo((props: IPopularMoviesListItem) => {
   const {item} = props;
   const {getMovieImageUri} = useMovies();
   const configuration = useAppSelector(state => state.movie.configuration);
@@ -23,10 +23,7 @@ const PopularMoviesListItem = (props: IPopularMoviesListItem) => {
   };
 
   return (
-    <TouchableOpacity
-      key={item.id}
-      style={styles.clickable}
-      onPress={handlePress}>
+    <TouchableOpacity style={styles.clickable} onPress={handlePress}>
       <FastImage
         style={styles.image}
         source={{
@@ -39,6 +36,4 @@ const PopularMoviesListItem = (props: IPopularMoviesListItem) => {
       />
     </TouchableOpacity>
   );
-};
-
-export default memo(PopularMoviesListItem);
+});

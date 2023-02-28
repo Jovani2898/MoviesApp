@@ -9,7 +9,7 @@ import {SearchStackNavigation} from './SearchStack';
 const Tabs = createBottomTabNavigator();
 
 export const TabsNavigation = () => (
-  <Tabs.Navigator screenOptions={{headerShown: false}}>
+  <Tabs.Navigator screenOptions={{headerShown: false, lazy: false}}>
     <Tabs.Screen
       name="homeTab"
       component={HomeStackNavigation}

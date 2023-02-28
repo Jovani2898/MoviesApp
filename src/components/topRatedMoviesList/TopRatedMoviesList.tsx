@@ -1,5 +1,18 @@
-import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
-import {Animated, Dimensions, FlatList, StatusBar} from 'react-native';
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import {
+  Animated,
+  Dimensions,
+  FlatList,
+  Platform,
+  StatusBar,
+} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {useMovies} from '../../hooks/useMovies';
 import {IMovie} from '../../interfaces/movie';
@@ -13,6 +26,7 @@ import TopRatedMoviesLoadMore from '../topRatedMoviesLoadMore/TopRatedMoviesLoad
 import {styles} from './styles';
 import {ScrollToTopButton} from '../scrollToTopButton/ScrollToTopButton';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+import {useSafeAreaFrame} from 'react-native-safe-area-context';
 
 export const TopRatedMoviesList = memo(() => {
   const opacityAnimation = useRef(new Animated.Value(0)).current;
@@ -25,7 +39,12 @@ export const TopRatedMoviesList = memo(() => {
 
   const [showScrollUpButton, setShowScrollUpButton] = useState(false);
 
-  const {height: windowHeight} = Dimensions.get('window');
+  const IOS_SAFE_HEIGHT = useSafeAreaFrame().height;
+  const windowHeight =
+    Platform.OS === 'android'
+      ? Dimensions.get('window').height
+      : IOS_SAFE_HEIGHT;
+
   const bottomHeight = useBottomTabBarHeight();
   const statusBarHeight = StatusBar?.currentHeight || 0;
 
@@ -51,6 +70,7 @@ export const TopRatedMoviesList = memo(() => {
   }, []);
 
   useEffect(() => {
+    console.log('uef');
     fetchTopRatedMovies(page).then(moviesResponse => {
       dispatch(saveTopRatedMovies(moviesResponse));
     });

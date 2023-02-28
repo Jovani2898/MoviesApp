@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import RNCheckBox from '@react-native-community/checkbox';
 import {StyleProp, Text, TouchableOpacity, ViewStyle} from 'react-native';
 import {styles} from './styles';
@@ -10,7 +10,7 @@ interface ICheckBox {
   containerStyle?: StyleProp<ViewStyle>;
 }
 
-export const CheckBox = (props: ICheckBox) => {
+export const CheckBox = memo((props: ICheckBox) => {
   const {selected, onSelect, title, containerStyle} = props;
 
   return (
@@ -20,7 +20,7 @@ export const CheckBox = (props: ICheckBox) => {
         onSelect(!selected);
       }}>
       <RNCheckBox value={selected} />
-      <Text>{title}</Text>
+      <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
-};
+});

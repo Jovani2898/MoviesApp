@@ -7,7 +7,7 @@ interface ITopRatedMoviesLoadMore {
   onPress: () => void;
 }
 
-const TopRatedMoviesLoadMore = (props: ITopRatedMoviesLoadMore) => {
+const TopRatedMoviesLoadMore = memo((props: ITopRatedMoviesLoadMore) => {
   const {onPress} = props;
   const isLoading = useAppSelector(
     state => state.movie.topRatedMovies.isLoading,
@@ -27,6 +27,6 @@ const TopRatedMoviesLoadMore = (props: ITopRatedMoviesLoadMore) => {
       </TouchableOpacity>
     </View>
   );
-};
+});
 
 export default memo(TopRatedMoviesLoadMore);

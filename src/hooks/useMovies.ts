@@ -2,6 +2,7 @@ import {filterMoviesByRating} from '../utils/movie.utils';
 import {IGenre} from '../interfaces/genre';
 import {IMovie} from '../interfaces/movie';
 import {Promise} from 'es6-promise';
+import {IMovieSearchFilter} from '../interfaces/movieSearchFIlter';
 
 export const useMovies = () => {
   const fetchConfiguration = async () => {
@@ -71,12 +72,7 @@ export const useMovies = () => {
     return response;
   };
 
-  const searchMovies = async (filter: {
-    title: string | null;
-    year: number | null;
-    rating: number;
-    genres: IGenre[];
-  }) => {
+  const searchMovies = async (filter: IMovieSearchFilter) => {
     let searchResults: IMovie[] = [];
     let page = 1;
     let totalPages = 0;
@@ -104,18 +100,22 @@ export const useMovies = () => {
         searchResults.push(...pageResults);
       });
 
-      const finalResult: any = [];
-      for (let i = 0; i < searchResults.length; i++) {
-        const element = searchResults[i];
-        if (
-          filter.genres
-            .filter(activeFilter => activeFilter.value)
-            .some(r => element.genre_ids.includes(r.id))
-        ) {
-          finalResult.push(element);
+      if (filter.genreIsSelected) {
+        const finalResult: any = [];
+        for (let i = 0; i < searchResults.length; i++) {
+          const element = searchResults[i];
+          if (
+            filter.genres
+              .filter(activeFilter => activeFilter.value)
+              .some(r => element.genre_ids.includes(r.id))
+          ) {
+            finalResult.push(element);
+          }
         }
+        return finalResult;
+      } else {
+        return searchResults;
       }
-      return finalResult;
     });
   };
 

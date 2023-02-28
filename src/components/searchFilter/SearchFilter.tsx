@@ -1,5 +1,5 @@
 import Slider from '@react-native-community/slider';
-import React, {useState} from 'react';
+import React, {memo, useState} from 'react';
 import {
   StyleProp,
   Text,
@@ -29,7 +29,7 @@ interface ISearchFilter {
   triggerFilter: () => void;
 }
 
-export const SearchFilter = (props: ISearchFilter) => {
+export const SearchFilter = memo((props: ISearchFilter) => {
   const [datePickerIsOpen, setDatePickerIsOpen] = useState(false);
   const {searchMovies} = useMovies();
 
@@ -114,7 +114,7 @@ export const SearchFilter = (props: ISearchFilter) => {
         {filter.genres?.map(
           (genre: {title: string; value: boolean; id: number}) => (
             <CheckBox
-              key={genre.title}
+              key={genre.id}
               title={genre.title}
               selected={genre.value}
               containerStyle={styles.checkbox}
@@ -137,4 +137,4 @@ export const SearchFilter = (props: ISearchFilter) => {
       </View>
     </View>
   );
-};
+});
