@@ -11,10 +11,11 @@ interface IAuthSignIn {
   form: ISignInForm | null;
   setForm: (name: string, value: string) => void;
   onSignIn: (name: string) => void;
+  signInError: string;
 }
 
 export const AuthSignIn = (props: IAuthSignIn) => {
-  const {onSignUpPress, onSignIn, setForm, form} = props;
+  const {onSignUpPress, onSignIn, setForm, form, signInError} = props;
   const {setOptions} = useNavigation();
 
   useEffect(() => {
@@ -23,13 +24,14 @@ export const AuthSignIn = (props: IAuthSignIn) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.errorMessage}>{signInError}</Text>
       <TextInput
         placeholder="Enter your email"
         value={form?.email || ''}
         onChange={({nativeEvent: {text}}) => {
           setForm('email', text);
         }}
-        style={styles.input}
+        style={signInError ? styles.inputWithError : styles.input}
       />
       <TextInput
         placeholder="Enter your password"
@@ -37,7 +39,7 @@ export const AuthSignIn = (props: IAuthSignIn) => {
         onChange={({nativeEvent: {text}}) => {
           setForm('password', text);
         }}
-        style={styles.input}
+        style={signInError ? styles.inputWithError : styles.input}
         secureTextEntry={true} //for blur password
       />
       <Button

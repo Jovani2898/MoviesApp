@@ -1,23 +1,17 @@
-import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {Keyboard} from 'react-native';
 import {AuthSignIn} from '../../../components/authSignIn/AuthSignIn';
 import {AuthSignUp} from '../../../components/authSignUp/AuthSignUp';
 import {Loader} from '../../../components/loader/Loader';
-import {useAppDispatch} from '../../../hooks/redux';
 import {useLogin} from '../../../hooks/useLogin';
 import {ISignInForm, ISignUpForm} from '../../../interfaces/auth';
-import {userSignIn, userSignUp} from '../../../redux/actions/user';
 
 export const AuthPage = () => {
-  const dispatch = useAppDispatch();
-  const {goBack} = useNavigation();
   const [showRegisterForm, setShowRegisterForm] = useState(false);
-  const [showLoader, setShowLoader] = useState(false);
 
   const [form, setForm] = useState<ISignInForm | ISignUpForm | null>(null);
 
-  const {signIn, signUp} = useLogin();
+  const {signIn, signUp, signInError, showLoader} = useLogin();
 
   const switchedView = () => {
     setShowRegisterForm(!showRegisterForm); //Меняет Sign In на SignUp и наоборот
@@ -33,7 +27,7 @@ export const AuthPage = () => {
     setForm({...form, [name]: value});
   };
 
-  /* 
+  /*
 onPropertyChange('name', 'jovani2898@gmail.com');
 onPropertyChange(birthDate, 'jovani2898@gmail.com');
 setForm({...form, email: jovani2898@gmail.com})
@@ -42,30 +36,15 @@ setForm({...form, name: value = jovani2898@gmail.com})
 
   const handleOnPress = async (name: string) => {
     Keyboard.dismiss();
-    setShowLoader(true);
     let response;
     switch (name) {
       case 'signIn':
         response = await signIn(form as ISignInForm);
-        setShowLoader(false);
         console.log({response});
-        if (response.success === true) {
-          dispatch(userSignIn(response.user));
-          goBack();
-        } else {
-          console.log('ERROR');
-        }
         break;
       case 'signUp':
         response = await signUp(form as ISignUpForm);
-        setShowLoader(false);
         console.log({response});
-        if (response.success === true) {
-          dispatch(userSignUp(response.user));
-          goBack();
-        } else {
-          console.log('ERROR');
-        }
         break;
       default:
         break;
@@ -87,6 +66,7 @@ setForm({...form, name: value = jovani2898@gmail.com})
           onSignUpPress={switchedView}
           setForm={onPropertyChange}
           onSignIn={handleOnPress}
+          signInError={signInError}
         />
       )}
       {showLoader ? <Loader /> : null}

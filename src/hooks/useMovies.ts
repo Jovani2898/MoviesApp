@@ -1,5 +1,4 @@
 import {filterMoviesByRating} from '../utils/movie.utils';
-import {IGenre} from '../interfaces/genre';
 import {IMovie} from '../interfaces/movie';
 import {Promise} from 'es6-promise';
 import {IMovieSearchFilter} from '../interfaces/movieSearchFIlter';

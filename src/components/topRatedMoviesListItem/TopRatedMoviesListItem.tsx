@@ -14,10 +14,7 @@ import {useStyles} from './styles';
 import React, {memo, useMemo} from 'react';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {useNavigation} from '@react-navigation/native';
-import {
-  useSafeAreaFrame,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import {useSafeAreaFrame} from 'react-native-safe-area-context';
 
 interface ITopRatedMoviesListItem {
   item: IMovie;
