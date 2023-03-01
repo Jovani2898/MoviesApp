@@ -50,13 +50,7 @@ export const getAdultIcon = (adult: boolean) => {
   );
 };
 
-export const getCompanies = ({
-  movieCompanies,
-  styles,
-  getMovieImageUri,
-  configuration,
-  setMovieCompanies,
-}: {
+interface GetCompaniesProps {
   movieCompanies: IMovieProductionCompany[];
   styles: any;
   getMovieImageUri: ({
@@ -70,7 +64,15 @@ export const getCompanies = ({
   }) => string;
   configuration: IConfiguration;
   setMovieCompanies: Dispatch<SetStateAction<IMovieProductionCompany[]>>;
-}) =>
+}
+
+export const getCompanies = ({
+  movieCompanies,
+  styles,
+  getMovieImageUri,
+  configuration,
+  setMovieCompanies,
+}: GetCompaniesProps) =>
   Object.values(movieCompanies)?.map((value: any, idx) => (
     <View key={value.id + idx}>
       {idx === 0 ? <Divider style={styles.divider} /> : null}
@@ -78,18 +80,19 @@ export const getCompanies = ({
         {movieCompanies[value.id].isLoaded === false && (
           <Icon name="image" size={80} style={styles.defaultImage} />
         )}
-        {movieCompanies[value.id] === null && (
+        {movieCompanies[value.id].isLoaded === null && (
           <FastImage
             style={styles.image}
             resizeMode="contain"
             source={{
               uri: getMovieImageUri({
-                baseUrl: configuration?.images.base_url,
+                baseUrl: configuration?.images.secure_base_url,
                 imagePath: value.logo_path,
                 imageSize: configuration?.images.poster_sizes[6],
               }),
             }}
             onError={() => {
+              console.log('error');
               setMovieCompanies({
                 ...movieCompanies,
                 [value.id]: {...movieCompanies[value.id], isLoaded: false},

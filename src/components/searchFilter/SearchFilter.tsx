@@ -23,6 +23,8 @@ import {
 } from '../../redux/actions/movies';
 import {Button} from '../button/Button';
 import {useMovies} from '../../hooks/useMovies';
+import {IMovieSearchFilter} from '../../interfaces/movieSearchFIlter';
+import {filterIsEmptyV2} from '../../utils/search.utils';
 
 interface ISearchFilter {
   style?: StyleProp<ViewStyle>;
@@ -35,15 +37,22 @@ export const SearchFilter = memo((props: ISearchFilter) => {
 
   const dispatch = useAppDispatch();
 
-  const filter = useAppSelector(state => state.movie.popularMovies.filter);
+  const filter: IMovieSearchFilter = useAppSelector(
+    state => state.movie.popularMovies.filter,
+  );
 
   const handleSearch = async () => {
     Keyboard.dismiss();
-    props.triggerFilter();
-    await searchMovies(filter).then(searchResult => {
-      // console.log({searchResult});
-      dispatch(searchSaveResult(searchResult));
-    });
+
+    if (filterIsEmptyV2(filter)) {
+      handleClear();
+    } else {
+      await searchMovies(filter).then(searchResult => {
+        // console.log({searchResult});
+        dispatch(searchSaveResult(searchResult));
+        props.triggerFilter();
+      });
+    }
   };
 
   const handleClear = async () => {

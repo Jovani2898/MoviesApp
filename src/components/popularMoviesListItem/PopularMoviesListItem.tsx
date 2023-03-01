@@ -30,7 +30,7 @@ export const PopularMoviesListItem = memo((props: IPopularMoviesListItem) => {
           uri: getMovieImageUri({
             imagePath: item.poster_path,
             imageSize: configuration?.images.poster_sizes[6],
-            baseUrl: configuration?.images.base_url,
+            baseUrl: configuration?.images.secure_base_url,
           }),
         }}
       />

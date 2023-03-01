@@ -44,6 +44,10 @@ export const MovieDetails = (props: IMovieDetails) => {
   const {getMovieImageUri, fetchMovieGenres, fetchSingleMovie} = useMovies();
 
   useEffect(() => {
+    console.log({movieCompanies});
+  }, [movieCompanies]);
+
+  useEffect(() => {
     if (genres.length === 0) {
       fetchMovieGenres().then((movieGenres: IGenre[]) => {
         dispatch(saveMovieGenres(movieGenres));

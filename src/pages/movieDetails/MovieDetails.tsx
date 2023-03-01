@@ -22,11 +22,11 @@ export const MovieDetailsPage = () => {
         loggedIn ? (
           <MovieDetailsHeaderFavorites movie={movie} />
         ) : (
-          <FavoritesAuth />
+          <FavoritesAuth movieId={movie.id} />
         ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loggedIn]);
 
   return <MovieDetails movie={movie} />;
 };
