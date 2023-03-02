@@ -12,10 +12,11 @@ interface IAuthSignUp {
   form: ISignUpForm | null;
   setForm: (name: string, value: string | Date) => void;
   onSignUp: (name: string) => void;
+  signUpError: string;
 }
 
 export const AuthSignUp = (props: IAuthSignUp) => {
-  const {onSignInPress, form, setForm, onSignUp} = props;
+  const {onSignInPress, form, setForm, onSignUp, signUpError} = props;
   const {setOptions} = useNavigation();
 
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -35,13 +36,14 @@ export const AuthSignUp = (props: IAuthSignUp) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.errorMessage}>{signUpError}</Text>
       <TextInput
         placeholder="Enter your email"
         value={form?.email || ''}
         onChange={({nativeEvent: {text}}) => {
           setForm('email', text);
         }}
-        style={styles.input}
+        style={signUpError ? styles.signUpInputError : styles.input}
       />
       <TextInput
         placeholder="Enter your password"
@@ -49,7 +51,7 @@ export const AuthSignUp = (props: IAuthSignUp) => {
         onChange={({nativeEvent: {text}}) => {
           setForm('password', text);
         }}
-        style={styles.input}
+        style={signUpError ? styles.signUpInputError : styles.input}
       />
       <TextInput
         placeholder="Enter your firstName"
@@ -57,7 +59,7 @@ export const AuthSignUp = (props: IAuthSignUp) => {
         onChange={({nativeEvent: {text}}) => {
           setForm('firstName', text);
         }}
-        style={styles.input}
+        style={signUpError ? styles.signUpInputError : styles.input}
       />
       <TextInput
         placeholder="Enter your lastName"
@@ -65,7 +67,7 @@ export const AuthSignUp = (props: IAuthSignUp) => {
         onChange={({nativeEvent: {text}}) => {
           setForm('lastName', text);
         }}
-        style={styles.input}
+        style={signUpError ? styles.signUpInputError : styles.input}
       />
       <DatePicker
         date={form?.birthDate || null}
@@ -85,7 +87,10 @@ export const AuthSignUp = (props: IAuthSignUp) => {
         }}
         multiline
         numberOfLines={4}
-        style={[styles.input, styles.textArea]}
+        style={[
+          signUpError ? styles.signUpInputError : styles.input,
+          styles.textArea,
+        ]}
       />
       <Button
         text="Sign Up"

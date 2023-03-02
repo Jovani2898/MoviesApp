@@ -11,7 +11,15 @@ export const AuthPage = () => {
 
   const [form, setForm] = useState<ISignInForm | ISignUpForm | null>(null);
 
-  const {signIn, signUp, signInError, showLoader} = useLogin();
+  const {
+    signIn,
+    signUp,
+    signInError,
+    showLoader,
+    setSignInError,
+    signUpError,
+    setSignUpError,
+  } = useLogin();
 
   const switchedView = () => {
     setShowRegisterForm(!showRegisterForm); //Меняет Sign In на SignUp и наоборот
@@ -25,6 +33,8 @@ export const AuthPage = () => {
       return;
     }
     setForm({...form, [name]: value});
+    setSignInError('');
+    setSignUpError('');
   };
 
   /*
@@ -59,6 +69,7 @@ setForm({...form, name: value = jovani2898@gmail.com})
           onSignInPress={switchedView}
           setForm={onPropertyChange}
           onSignUp={handleOnPress}
+          signUpError={signUpError}
         />
       ) : (
         <AuthSignIn

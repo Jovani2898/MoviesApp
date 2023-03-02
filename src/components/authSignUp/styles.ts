@@ -15,4 +15,11 @@ export const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   textArea: {textAlignVertical: 'top'},
+  errorMessage: {color: 'red', paddingVertical: 6},
+  signUpInputError: {
+    width: 300,
+    marginBottom: 12,
+    borderEndWidth: 1,
+    borderColor: 'red',
+  },
 });

@@ -1,5 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
+import {Alert} from 'react-native';
 import {ISignInForm, ISignUpForm} from '../interfaces/auth';
 import {userSignIn, userSignUp} from '../redux/actions/user';
 import {useAppDispatch} from './redux';
@@ -9,6 +10,7 @@ export const useLogin = () => {
   const {goBack} = useNavigation();
 
   const [signInError, setSignInError] = useState('');
+  const [signUpError, setSignUpError] = useState('');
   const [showLoader, setShowLoader] = useState(false);
 
   const signIn = async (form: ISignInForm) => {
@@ -24,6 +26,7 @@ export const useLogin = () => {
     } else {
       setSignInError('User with given email or password not found');
     }
+
     return response;
   };
 
@@ -38,7 +41,7 @@ export const useLogin = () => {
       dispatch(userSignUp(response.user));
       goBack();
     } else {
-      console.log('ERROR');
+      setSignUpError('all values must be provided');
     }
     return response;
   };
@@ -49,9 +52,20 @@ export const useLogin = () => {
       'https://us-east-1.aws.data.mongodb-api.com/app/movies-app-jovani-api-tfsfi/endpoint/profile',
       {method: 'PUT', body: JSON.stringify(form)},
     ).then(res => res.json());
-
+    if (response.success === true) {
+      Alert.alert('Changes Saved successfully');
+    }
     return response;
   };
 
-  return {signIn, signUp, updateProfile, signInError, showLoader};
+  return {
+    signIn,
+    signUp,
+    updateProfile,
+    signInError,
+    signUpError,
+    setSignInError,
+    setSignUpError,
+    showLoader,
+  };
 };

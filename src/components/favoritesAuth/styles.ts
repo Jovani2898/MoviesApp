@@ -5,5 +5,9 @@ export const styles = StyleSheet.create({
     flex: 1,
     margin: 10,
   },
-  text: {textDecorationLine: 'underline', fontWeight: '700'},
+  button: {
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
