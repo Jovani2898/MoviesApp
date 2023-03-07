@@ -1,6 +1,6 @@
 import {SPLASH_TYPES} from '../types/splash';
 
-const initialState = {
+const initialState: {root: boolean} = {
   root: false,
 };
 

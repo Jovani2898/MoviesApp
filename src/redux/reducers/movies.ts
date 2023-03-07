@@ -153,6 +153,7 @@ export const MoviesReducer = (
               genre.value = false;
               return genre;
             }),
+            genreIsSelected: false,
           },
           searchResult: null,
         },
