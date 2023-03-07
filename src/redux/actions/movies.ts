@@ -68,3 +68,8 @@ export const searchStartLoading = () => ({
   type: MoviesTypes.SEARCH_START_LOADING,
   payload: null,
 });
+
+export const triggerScrollEnabled = (isEnabled: boolean) => ({
+  type: MoviesTypes.TRIGGER_SCROLL_ENABLED,
+  payload: isEnabled,
+});

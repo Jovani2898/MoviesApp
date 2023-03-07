@@ -7,7 +7,7 @@ import {Navigation} from './src/navigation/Navigation';
 import {updateConfiguration} from './src/redux/actions/movies';
 import {persistor, store} from './src/redux/store';
 import {useMovies} from './src/hooks/useMovies';
-import {Platform, SafeAreaView, StatusBar} from 'react-native';
+import {Platform, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -38,12 +38,14 @@ const App = () => {
   return (
     <>
       <StatusBar />
-      <Wrapper style={{flex: 1}}>
+      <Wrapper style={AppStyles.wrapper}>
         <Navigation />
       </Wrapper>
     </>
   );
 };
+
+const AppStyles = StyleSheet.create({wrapper: {flex: 1}});
 
 const AppWithProvider = () => (
   <>

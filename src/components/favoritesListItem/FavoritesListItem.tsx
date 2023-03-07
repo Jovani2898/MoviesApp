@@ -5,6 +5,10 @@ import FastImage from 'react-native-fast-image';
 import {useAppSelector} from '../../hooks/redux';
 import {useMovies} from '../../hooks/useMovies';
 import {IMovie} from '../../interfaces/movie';
+import {
+  DETAILS_SCREEN,
+  RootNavigationParamList,
+} from '../../navigation/navigation.constants';
 import {styles} from './styles';
 
 interface IFavoritesListItem {
@@ -15,14 +19,14 @@ interface IFavoritesListItem {
 export const FavoritesListItem = (props: IFavoritesListItem) => {
   const {item, setScrollEnabled} = props;
 
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<RootNavigationParamList>();
 
   const {getMovieImageUri} = useMovies();
 
   const configuration = useAppSelector(state => state.movie.configuration);
 
   const handleRedirect = useCallback(() => {
-    navigate('details', {movie: item});
+    navigate(DETAILS_SCREEN, {movie: item});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

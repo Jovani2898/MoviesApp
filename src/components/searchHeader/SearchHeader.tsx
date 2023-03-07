@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Animated, Keyboard, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
@@ -7,17 +7,18 @@ import {
   searchChangeTitle,
   searchSaveResult,
   searchStartLoading,
+  triggerScrollEnabled,
 } from '../../redux/actions/movies';
 import {SearchFilter} from '../searchFilter/SearchFilter';
 import {TextInput} from '../textInput/TextInput';
 import {styles} from './styles';
 
-interface ISearchHeader {
-  setEnableScroll: Dispatch<SetStateAction<boolean>>;
-}
-
-export const SearchHeader = (props: ISearchHeader) => {
-  const {setEnableScroll} = props;
+// interface ISearchHeader {
+//   setEnableScroll: Dispatch<SetStateAction<boolean>>;
+// }
+// props: ISearchHeader
+export const SearchHeader = () => {
+  // const {setEnableScroll} = props;
 
   const [showFilters, setShowFilters] = useState(false);
 
@@ -33,14 +34,12 @@ export const SearchHeader = (props: ISearchHeader) => {
     Keyboard.dismiss();
     setShowFilters(state => {
       if (!state) {
-        // setEnableScroll(false);
         Animated.spring(slideAnimation, {
           toValue: 0,
           useNativeDriver: false,
           bounciness: 0,
         }).start();
       } else {
-        // setEnableScroll(true);
         Animated.spring(slideAnimation, {
           toValue: 1,
           useNativeDriver: false,
@@ -49,6 +48,10 @@ export const SearchHeader = (props: ISearchHeader) => {
       return !state;
     });
   };
+
+  useEffect(() => {
+    dispatch(triggerScrollEnabled(!showFilters));
+  }, [dispatch, showFilters]);
 
   const submitSearch = async () => {
     if (showFilters) {

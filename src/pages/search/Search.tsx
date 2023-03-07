@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {PopularMoviesList} from '../../components/popularMoviesList/PopularMoviesList';
 import {SearchHeader} from '../../components/searchHeader/SearchHeader';
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
@@ -9,7 +9,7 @@ import {saveMovieGenres} from '../../redux/actions/movies';
 
 export const SearchPage = () => {
   const {setOptions} = useNavigation();
-  const [enableScroll, setEnableScroll] = useState(true);
+  // const [enableScroll, setEnableScroll] = useState(true);
 
   const {fetchMovieGenres} = useMovies();
 
@@ -21,7 +21,8 @@ export const SearchPage = () => {
 
   useEffect(() => {
     setOptions({
-      header: () => <SearchHeader setEnableScroll={setEnableScroll} />,
+      // setEnableScroll={setEnableScroll}
+      header: () => <SearchHeader />,
     });
 
     if (genres.length === 0) {
@@ -34,7 +35,8 @@ export const SearchPage = () => {
 
   return (
     <>
-      <PopularMoviesList enableScroll={enableScroll} />
+      {/* enableScroll={enableScroll} */}
+      <PopularMoviesList />
     </>
   );
 };

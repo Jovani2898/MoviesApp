@@ -9,12 +9,12 @@ import {Loader} from '../loader/Loader';
 import {PopularMovieIsEmpty} from '../popularMovieIsEmpty/PopularMovieIsEmpty';
 import {PopularMoviesListItem} from '../popularMoviesListItem/PopularMoviesListItem';
 
-interface IPopularMoviesLIst {
-  enableScroll: boolean;
-}
-
-export const PopularMoviesList = memo((props: IPopularMoviesLIst) => {
-  const {enableScroll} = props;
+// interface IPopularMoviesLIst {
+//   enableScroll: boolean;
+// }
+// props: IPopularMoviesLIst
+export const PopularMoviesList = memo(() => {
+  // const {enableScroll} = props;
 
   const [page, setPage] = useState(1);
 
@@ -31,6 +31,7 @@ export const PopularMoviesList = memo((props: IPopularMoviesLIst) => {
     searchResult,
     filter,
     isLoading,
+    scrollIsEnabled,
   } = useAppSelector(state => state.movie.popularMovies);
 
   const [data, setData] = useState(popularMovies);
@@ -59,7 +60,7 @@ export const PopularMoviesList = memo((props: IPopularMoviesLIst) => {
           <PopularMoviesListItem item={item} />
         )}
         numColumns={3}
-        scrollEnabled={enableScroll}
+        scrollEnabled={scrollIsEnabled}
         ListEmptyComponent={PopularMovieIsEmpty}
         onMomentumScrollEnd={event => {
           const offsetFromListStart = event.nativeEvent.contentOffset.y;

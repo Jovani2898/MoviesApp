@@ -15,5 +15,6 @@ export interface IMovies {
     searchResult: IMovie[] | null;
     isLoading: boolean;
     filter: IMovieSearchFilter;
+    scrollIsEnabled: boolean;
   };
 }

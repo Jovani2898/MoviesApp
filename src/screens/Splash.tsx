@@ -5,9 +5,15 @@ import {useNavigation} from '@react-navigation/native';
 import {styles} from './styles';
 import {useAppDispatch, useAppSelector} from '../hooks/redux';
 import {SplashLoadingFinish} from '../redux/actions/splash';
+import {
+  HOME,
+  HOME_STACK,
+  RootNavigationParamList,
+  TABS_NAVIGATOR,
+} from '../navigation/navigation.constants';
 
 const Splash = () => {
-  const navigation = useNavigation();
+  const {navigate} = useNavigation<RootNavigationParamList>();
 
   const dispatch = useAppDispatch();
   const selectRootNav = useAppSelector(state => state.splash.root);
@@ -22,9 +28,12 @@ const Splash = () => {
 
   useEffect(() => {
     if (selectRootNav) {
-      navigation.navigate('default');
+      navigate(TABS_NAVIGATOR, {
+        screen: HOME_STACK,
+        params: {screen: HOME},
+      });
     }
-  }, [navigation, selectRootNav]);
+  }, [navigate, selectRootNav]);
 
   //Когда selectRootNav становиться True, через 5000 милисикунд то мы переходим на "default"
 
@@ -41,3 +50,7 @@ const Splash = () => {
 };
 
 export default Splash;
+
+/*
+Argument of type 'string' is not assignable to parameter of type '{ key: string; params?: undefined; merge?: boolean | undefined; } | { name: "Splash"; key?: string | undefined; params: undefined; merge?: boolean | undefined; } | { key: string; params?: BottomTabNavigationProp<{ ...; }, "HomeStack" | ... 2 more ... | "Profile", undefined> | undefined; merge?: boolean | undefined; ...'.ts(2345)
+*/

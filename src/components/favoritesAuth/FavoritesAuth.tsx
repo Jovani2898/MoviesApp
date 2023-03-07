@@ -4,9 +4,13 @@ import {TouchableOpacity, View} from 'react-native';
 import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useAppSelector} from '../../hooks/redux';
+import {
+  AUTH_SCREEN,
+  RootNavigationParamList,
+} from '../../navigation/navigation.constants';
 
 export const FavoritesAuth = ({movieId}) => {
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<RootNavigationParamList>();
   const favorites = useAppSelector(state => state.favorites.data);
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -18,7 +22,7 @@ export const FavoritesAuth = ({movieId}) => {
   }, [favorites, movieId]);
 
   const onRedirect = () => {
-    navigate('auth');
+    navigate(AUTH_SCREEN);
   };
 
   return (

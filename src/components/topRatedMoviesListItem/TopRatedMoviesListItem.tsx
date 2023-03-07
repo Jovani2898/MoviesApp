@@ -15,6 +15,10 @@ import React, {memo, useMemo} from 'react';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {useNavigation} from '@react-navigation/native';
 import {useSafeAreaFrame} from 'react-native-safe-area-context';
+import {
+  DETAILS_SCREEN,
+  RootNavigationParamList,
+} from '../../navigation/navigation.constants';
 
 interface ITopRatedMoviesListItem {
   item: IMovie;
@@ -40,14 +44,14 @@ export const TopRatedMoviesListItem = memo((props: ITopRatedMoviesListItem) => {
     windowHeight,
   });
 
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<RootNavigationParamList>();
 
   return (
     <TouchableOpacity
       key={item.id}
       style={styles.item}
       onPress={() => {
-        navigate('details', {movie: item});
+        navigate(DETAILS_SCREEN, {movie: item});
       }}>
       <FastImage //fast images have a useMemo inside
         style={styles.image}

@@ -43,12 +43,10 @@ export const SearchFilter = memo((props: ISearchFilter) => {
 
   const handleSearch = async () => {
     Keyboard.dismiss();
-
     if (filterIsEmptyV2(filter)) {
       handleClear();
     } else {
       await searchMovies(filter).then(searchResult => {
-        // console.log({searchResult});
         dispatch(searchSaveResult(searchResult));
         props.triggerFilter();
       });

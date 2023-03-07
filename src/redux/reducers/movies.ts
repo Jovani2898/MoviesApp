@@ -21,6 +21,7 @@ const initialState: IMovies = {
       title: null,
       genreIsSelected: false,
     },
+    scrollIsEnabled: true,
   },
 };
 
@@ -162,6 +163,14 @@ export const MoviesReducer = (
         popularMovies: {
           ...state.popularMovies,
           isLoading: true,
+        },
+      };
+    case MoviesTypes.TRIGGER_SCROLL_ENABLED:
+      return {
+        ...state,
+        popularMovies: {
+          ...state.popularMovies,
+          scrollIsEnabled: action.payload,
         },
       };
     default:

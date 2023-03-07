@@ -5,6 +5,10 @@ import FastImage from 'react-native-fast-image';
 import {useAppSelector} from '../../hooks/redux';
 import {useMovies} from '../../hooks/useMovies';
 import {IMovie} from '../../interfaces/movie';
+import {
+  DETAILS_SCREEN,
+  RootNavigationParamList,
+} from '../../navigation/navigation.constants';
 import {styles} from './styles';
 
 interface IPopularMoviesListItem {
@@ -16,10 +20,10 @@ export const PopularMoviesListItem = memo((props: IPopularMoviesListItem) => {
   const {getMovieImageUri} = useMovies();
   const configuration = useAppSelector(state => state.movie.configuration);
 
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<RootNavigationParamList>();
 
   const handlePress = () => {
-    navigate('details', {movie: item});
+    navigate(DETAILS_SCREEN, {movie: item});
   };
 
   return (
