@@ -5,11 +5,12 @@ import {FavoritesReducer} from './reducers/favorites';
 import {MoviesReducer} from './reducers/movies';
 import {UserReducer} from './reducers/user';
 import {persistReducer, persistStore} from 'redux-persist';
+import {SplashReducer} from './reducers/splash';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['movie'],
+  blacklist: ['movie', 'splash'],
 };
 
 const createDebugger = require('redux-flipper').default;
@@ -20,6 +21,7 @@ const persistedReducer = persistReducer(
     user: UserReducer,
     movie: MoviesReducer,
     favorites: FavoritesReducer,
+    splash: SplashReducer,
   }),
 );
 

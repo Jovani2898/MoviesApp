@@ -46,13 +46,15 @@ const App = () => {
 };
 
 const AppWithProvider = () => (
-  <StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
-  </StrictMode>
+  <>
+    <StrictMode>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
+    </StrictMode>
+  </>
 );
 
 export default AppWithProvider;
